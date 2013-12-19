@@ -27,7 +27,7 @@ var powerupChar=['&#1161;'];
 // var powerupChar=['&#9830;'];
 var powerupTime = 0;
 var powerupDuration = 0;
-var powerupInitial=50;
+var powerupInitial=25;
 var powerupProb = .3;
 
 
@@ -102,8 +102,6 @@ function spawnRocks(num){
 }
 
 function spawnPowerup(num){
-	document.body.style.backgroundColor='orange';
-	setTimeout("document.body.style.backgroundColor='black';",1);
 	for(var i=0;i<num;i++){
 		new Powerup(
 			rand(0,dims.w),
@@ -398,6 +396,8 @@ function Powerup(x0,y0,vx0,vy0,a,size){
     		this.removed=true;
     	}else{
     		this.ttl -= 1
+    		colorstr = "hsl("+((Date.now()/3)%360)+",100%,75%)"
+    		this.div.style.webkitTextStrokeColor= colorstr
     	};
     }
 
