@@ -10,6 +10,7 @@ var keys={};
 var things=[];
 var bullets=[];
 var rocks=[];
+var powerups=[];
 
 var dt=1/30; //time step, seconds.
 
@@ -22,6 +23,14 @@ var rockFactor=.6;
 var rockChilderen=2;
 var rockChars=['&#9827;','&#9824;','&#9829;','&#9830;'];
 
+var powerupChar=['&#1161;'];
+// var powerupChar=['&#9830;'];
+var powerupTime = 0;
+var powerupDuration = 0;
+var powerupInitial=50;
+var powerupProb = .3;
+
+
 var bulletFrequency=6;
 var bulletWait=0;
 
@@ -32,6 +41,8 @@ var lives=3;
 
 var scoreBox;
 var lifeBox;
+
+
 
 function init(){
 	container=document.getElementById("container");
@@ -90,6 +101,38 @@ function spawnRocks(num){
 	}
 }
 
+function spawnPowerup(num){
+	document.body.style.backgroundColor='orange';
+	setTimeout("document.body.style.backgroundColor='black';",1);
+	for(var i=0;i<num;i++){
+		new Powerup(
+			rand(0,dims.w),
+			rand(0,dims.h),
+			rand(-boom,boom),
+			rand(-boom,boom),
+			rand(0,Math.PI*2),
+			powerupInitial
+			)
+	}
+}
+
+function setPowerUp(){
+	if(bulletFrequency<1000){
+			halo(myShip.x,myShip.y);
+	}
+
+	bulletFrequency=100000;
+	rainbowMode=true;
+	powerupDuration+=1000;
+
+}
+
+function setPowerDown(){
+	bulletFrequency = 6;
+	rainbowMode = false;
+	powerupDuration = 0;
+}
+
 function keyDown(e){
 	keys[e.which]=true;
 	
@@ -134,6 +177,17 @@ function step(){
 		}
 	}
 	
+	for(var i in powerups){
+		var p = powerups[i];
+		if(!p.removed && Math.dist(p.x-myShip.x,p.y-myShip.y)<(p.size/2)){//collision!
+			setPowerUp();
+			p.div.style.visibility = 'hidden';
+			p.removed = true;
+			document.body.style.backgroundColor='white';
+			setTimeout("document.body.style.backgroundColor='black';",1);
+		}
+	}
+
 	//check for collisions, do collisions!
 	for(var i in rocks){
 		var r=rocks[i ];
@@ -166,6 +220,7 @@ function step(){
 		
 		if(!r.removed && Math.dist(r.x-myShip.x,r.y-myShip.y)<(r.size/2)){//collision!
 			explosion(myShip.x,myShip.y,500);
+			setPowerDown();
 			lives--;
 			myShip.x=dims.w/2;
 			myShip.y=dims.h/2;
@@ -183,12 +238,32 @@ function step(){
 	cull(things);
 	cull(bullets);
 	cull(rocks);
+	cull(powerups);
 	
 	if(!rocks.length){
 		numRocks+=3;
 		spawnRocks(numRocks);
 		lives++;
 		upLives();
+	}
+
+	//spawn powerup
+	if(powerupTime>2500){
+		if (Math.random()<powerupProb) {
+			spawnPowerup(1);
+			powerupTime = 0;
+		}else{
+			powerupTime += 1;
+		};
+	}else{
+		powerupTime += 1;
+	}
+
+	if(powerupDuration==1){
+		setPowerDown();
+		powerupDuration=0;
+	}else if(powerupDuration>1){
+		powerupDuration-=1;
 	}
 }
 
@@ -301,6 +376,34 @@ function Bullet(x0,y0,vx0,vy0,time){
 	
 	this.up();
 	bullets.push(this);
+}
+
+function Powerup(x0,y0,vx0,vy0,a,size){
+   
+   	this.inheritFrom = Thing;
+	//this.inheritFrom(x0,y0,vx0,vy0,size,a,'rock','');
+	//this.inheritFrom(x0,y0,vx0,vy0,size,a,'rock','&#63743;');
+	this.inheritFrom(x0,y0,vx0,vy0,size,a,'powerup',powerupChar[0]);
+
+	this.upRot();
+
+	this.ttl = 2000;
+	
+    this.up=function(){
+    	this.step();
+    	this.upLoc();
+    	
+    	if (this.ttl==0) {
+    		this.div.style.visibility='hidden';
+    		this.removed=true;
+    	}else{
+    		this.ttl -= 1
+    	};
+    }
+
+    this.up();
+    
+    powerups.push(this);
 }
 
 //rock class
