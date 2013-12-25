@@ -290,6 +290,12 @@ function step(){
 			lives--;
 			document.body.style.backgroundColor='grey';
 			needToRespawn = true;
+			myShip.div.style.visibility='hidden';
+			myShip.x=-10;
+			myShip.y=-10;
+			myShip.vx=0;
+			myShip.vy=0;
+			myShip.a=0;
 		}
 	}
 	
@@ -342,6 +348,7 @@ function checkSpawnCollision(){
 	myShip.vy=0;
 	myShip.a=0;
 	upLives();
+	myShip.div.style.visibility='visible';
 	document.body.style.backgroundColor='black';
 }
 
