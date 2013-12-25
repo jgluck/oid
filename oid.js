@@ -106,8 +106,8 @@ function init(){
 
 	   //lets add the burner
 	if(accel){
-		container.addEventListener('touchstart',setBurn());
-		container.addEventListener('touchend',stopBurn());
+		container.addEventListener('touchstart',setBurn,false);
+		container.addEventListener('touchend',stopBurn,false;
 	}
 	
 	resize();
