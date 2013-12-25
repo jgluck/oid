@@ -60,6 +60,10 @@ function stopBurn(){
 	toBurn = false;
 }
 
+function doNuffin(){
+	;
+}
+
 
 function deviceMotionHandler(eventData) {
   // var info, xyz = "[X, Y, Z]";
@@ -119,6 +123,7 @@ function init(){
 	if(accel){
 		container.addEventListener('touchstart',setBurn,false);
 		container.addEventListener('touchend',stopBurn,false);
+		container.addEventListener('touchmove',doNuffin,false);
 	}
 }
 
