@@ -64,20 +64,23 @@ function deviceMotionHandler(eventData) {
   if(ori == 0){
   	//portrai
   	xrot = rotation.x;
+  	toTurn = xrot;
   	toPrint = "xrot: " + xrot;
   }else if(ori == -90){
   	//turned left
   	yrot = rotation.y;
+  	toTurn = -yrot;
   	toPrint = "yrot: " + yrot;
   }else{
   	//turned right
   	yrot = rotation.y;
+  	toTurn = yrot;
   	toPrint = "yrot: " + yrot;
   }
 
 
 
-  console.log(toPrint);      
+  // console.log(toPrint);      
 }
 
 function init(){
@@ -359,7 +362,12 @@ function Ship(){
 					this.vy+rand(100,200)*Math.cos(this.a),rand(0,.3)*(rainbowMode?5:1));
 			}
 		}
-		
+
+		if(accel){
+			if (Math.abs(toTurn)>0.2) {
+				this.a+=toTurn*dt;
+			};
+		}
 		if(keys[39]){ //right
 			this.a+=turnSpeed*dt;
 		}
