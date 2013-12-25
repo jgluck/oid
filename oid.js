@@ -126,7 +126,7 @@ function init(){
    	isTouchy = 'ontouchstart' in window // works on most browsers 
       || 'onmsgesturechange' in window; // works on ie10
 
-	if(ifTouchy){
+	if(accel){
 		container.addEventListener('touchstart',setBurn,false);
 		container.addEventListener('touchend',stopBurn,false);
 		container.addEventListener('touchmove',doNuffin,false);
