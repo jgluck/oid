@@ -56,7 +56,7 @@ function deviceMotionHandler(eventData) {
   // var info, xyz = "[X, Y, Z]";
   yrot = 0;
 
-  var rotation = eventData.acceleration;
+  var rotation = eventData.accelerationIncludingGravity;
 
   yrot = rotation.y;
 
