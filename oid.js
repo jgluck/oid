@@ -330,7 +330,7 @@ function step(){
 function checkSpawnCollision(){
 	for(var i in rocks){
 		var r=rocks[i];
-		if(!r.removed && Math.dist(r.x-myShip.x,r.y-myShip.y)<(r.size/2)){
+		if(!r.removed && Math.dist(r.x-dims.w/2,r.y-dims.h/2)<(r.size/2)){
 			//collision
 			return false;
 		}
