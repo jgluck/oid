@@ -556,12 +556,13 @@ function Thing(x,y,vx,vy,size,angle,className,content){
     container.appendChild(this.div);
     
     this.step=function(){
-    	this.x+=this.vx*dt;
-    	this.y+=this.vy*dt;
+    	if(!needToRespawn){
+			this.x+=this.vx*dt;
+    		this.y+=this.vy*dt;
     	
-    	this.x=(this.x+dims.w)%dims.w;
-		this.y=(this.y+dims.h)%dims.h;
-
+    		this.x=(this.x+dims.w)%dims.w;
+			this.y=(this.y+dims.h)%dims.h;
+    	}
     }
 	this.upLoc=function(){
 		this.div.style.top=n2s(this.y)+'px';
