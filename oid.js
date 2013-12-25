@@ -45,12 +45,20 @@ var lifeBox;
 // Accelerometer support
 var accel = false;
 var toTurn = 0;
+var toBurn = false;
 
 if (window.DeviceMotionEvent) {
 	accel = true;
   window.addEventListener('devicemotion', deviceMotionHandler, false);
 }
 
+function setBurn(){
+	toBurn = true;
+}
+
+function stopBurn(){
+	toBurn = false;
+}
 
 
 function deviceMotionHandler(eventData) {
@@ -106,6 +114,12 @@ function init(){
 	
 	upScore();
 	upLives();
+
+    //lets add the burner
+	if(accel){
+		container.addEventListener('touchstart',setBurn());
+		container.addEventListener('touchend',stopBurn());
+	}
 }
 
 function upLives(){
@@ -370,7 +384,7 @@ function Ship(){
 				bulletWait=1/bulletFrequency;
 				this.fire();
 			}
-			
+
 			if (Math.abs(toTurn)>0.2) {
 				this.a+=toTurn*dt;
 			};
