@@ -58,7 +58,7 @@ function deviceMotionHandler(eventData) {
 
   var rotation = eventData.acceleration;
 
-  yrot = rotation.beta;
+  yrot = rotation.y;
 
   console.log(yrot);      
 }
