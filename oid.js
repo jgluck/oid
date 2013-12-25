@@ -349,7 +349,7 @@ function checkSpawnCollision(){
 	myShip.a=0;
 	upLives();
 	myShip.div.style.visibility='visible';
-	document.body.style.backgroundColor='black';
+	setTimeout("document.body.style.backgroundColor='black';",1);
 }
 
 function cull(arr){
