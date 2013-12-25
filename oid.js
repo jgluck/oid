@@ -288,7 +288,6 @@ function step(){
 			explosion(myShip.x,myShip.y,500);
 			setPowerDown();
 			lives--;
-			document.body.style.backgroundColor='grey';
 			needToRespawn = true;
 			myShip.div.style.visibility='hidden';
 			myShip.x=-1000;
@@ -349,6 +348,7 @@ function checkSpawnCollision(){
 	myShip.a=0;
 	upLives();
 	myShip.div.style.visibility='visible';
+	document.body.style.backgroundColor='grey';
 	setTimeout("document.body.style.backgroundColor='black';",1);
 }
 
