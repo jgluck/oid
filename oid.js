@@ -61,11 +61,11 @@ function deviceMotionHandler(eventData) {
   var ori = window.orientation;
   var toPrint = 0;
 
-  if(ori = 0){
+  if(ori == 0){
   	//portrai
   	xrot = rotation.x;
   	toPrint = "xrot: " + xrot;
-  }else if(ori = -90){
+  }else if(ori == -90){
   	//turned left
   	yrot = rotation.y;
   	toPrint = "yrot: " + yrot;
