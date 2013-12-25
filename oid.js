@@ -392,8 +392,8 @@ function Ship(){
 				this.fire();
 			}
 
-			if (Math.abs(toTurn)>0.2) {
-				this.a+=toTurn*dt;
+			if (Math.abs(toTurn)>0.4) {
+				this.a+=toTurn*dt*1.5;
 			};
 
 			if(toBurn){
