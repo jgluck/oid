@@ -42,7 +42,44 @@ var lives=3;
 var scoreBox;
 var lifeBox;
 
+// Accelerometer support
+var accel = false;
 
+if (window.DeviceMotionEvent) {
+	accel = true;
+  window.addEventListener('devicemotion', deviceMotionHandler, false);
+}
+
+
+
+function deviceMotionHandler(eventData) {
+  var info, xyz = "[X, Y, Z]";
+
+  // Grab the acceleration from the results
+  var acceleration = eventData.acceleration;
+  info = xyz.replace("X", acceleration.x);
+  info = info.replace("Y", acceleration.y);
+  info = info.replace("Z", acceleration.z);
+  console.log(info);
+
+  // Grab the acceleration including gravity from the results
+  acceleration = eventData.accelerationIncludingGravity;
+  info = xyz.replace("X", acceleration.x);
+  info = info.replace("Y", acceleration.y);
+  info = info.replace("Z", acceleration.z);
+  console.log(info);
+
+  // Grab the rotation rate from the results
+  var rotation = eventData.rotationRate;
+  info = xyz.replace("X", rotation.alpha);
+  info = info.replace("Y", rotation.beta);
+  info = info.replace("Z", rotation.gamma);
+  document.getElementById("moRotation").innerHTML = info;
+
+  // // Grab the refresh interval from the results
+  info = eventData.interval;
+  console.log(info);      
+}
 
 function init(){
 	container=document.getElementById("container");
