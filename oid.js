@@ -46,6 +46,7 @@ var lifeBox;
 var accel = false;
 var toTurn = 0;
 var toBurn = false;
+var isTouchy = false;
 
 if (window.DeviceMotionEvent) {
 	accel = true;
@@ -122,7 +123,10 @@ function init(){
 	upScore();
 	upLives();
 		   //lets add the burner
-	if(accel){
+   	isTouchy = 'ontouchstart' in window // works on most browsers 
+      || 'onmsgesturechange' in window; // works on ie10
+
+	if(ifTouchy){
 		container.addEventListener('touchstart',setBurn,false);
 		container.addEventListener('touchend',stopBurn,false);
 		container.addEventListener('touchmove',doNuffin,false);
@@ -384,7 +388,7 @@ function Ship(){
 			}
 		}
 
-		if(accel){
+		if(isTouchy){
 
 			bulletWait-=dt;
 			if(bulletWait<=0){
