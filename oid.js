@@ -69,12 +69,12 @@ function deviceMotionHandler(eventData) {
   }else if(ori == -90){
   	//turned left
   	yrot = rotation.y;
-  	toTurn = -yrot;
+  	toTurn = yrot;
   	toPrint = "yrot: " + yrot;
   }else{
   	//turned right
   	yrot = rotation.y;
-  	toTurn = yrot;
+  	toTurn = -yrot;
   	toPrint = "yrot: " + yrot;
   }
 
@@ -364,6 +364,13 @@ function Ship(){
 		}
 
 		if(accel){
+
+			bulletWait-=dt;
+			if(bulletWait<=0){
+				bulletWait=1/bulletFrequency;
+				this.fire();
+			}
+			
 			if (Math.abs(toTurn)>0.2) {
 				this.a+=toTurn*dt;
 			};
