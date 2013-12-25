@@ -30,6 +30,7 @@ var powerupDuration = 0;
 var powerupInitial=25;
 var powerupProb = .3;
 
+var needToRespawn = false;
 
 var bulletFrequency=6;
 var bulletWait=0;
@@ -123,8 +124,7 @@ function init(){
 	upScore();
 	upLives();
 		   //lets add the burner
-   	isTouchy = 'ontouchstart' in window // works on most browsers 
-      || 'onmsgesturechange' in window; // works on ie10
+   	isTouchy = 'ontouchstart' in window || 'onmsgesturechange' in window; // works on ie10
 
 	if(accel){
 		container.addEventListener('touchstart',setBurn,false);
@@ -233,6 +233,10 @@ function resize(e){
 
 function step(){
 	
+	if(needToRespawn){
+		checkSpawnCollision();
+	}
+
 	for(var i in things){
 		if(!things[i].removed){
 			things[i].up();
@@ -284,14 +288,8 @@ function step(){
 			explosion(myShip.x,myShip.y,500);
 			setPowerDown();
 			lives--;
-			myShip.x=dims.w/2;
-			myShip.y=dims.h/2;
-			myShip.vx=0;
-			myShip.vy=0;
-			myShip.a=0;
-			upLives();
 			document.body.style.backgroundColor='grey';
-			setTimeout("document.body.style.backgroundColor='black';",1);
+			needToRespawn = true;
 		}
 	}
 	
@@ -327,6 +325,24 @@ function step(){
 	}else if(powerupDuration>1){
 		powerupDuration-=1;
 	}
+}
+
+function checkSpawnCollision(){
+	for(var i in rocks){
+		var r=rocks[i];
+		if(!r.removed && Math.dist(r.x-myShip.x,r.y-myShip.y)<(r.size/2)){
+			//collision
+			return false;
+		}
+	}
+	needToRespawn = false;
+	myShip.x=dims.w/2;
+	myShip.y=dims.h/2;
+	myShip.vx=0;
+	myShip.vy=0;
+	myShip.a=0;
+	upLives();
+	document.body.style.backgroundColor='black';
 }
 
 function cull(arr){
