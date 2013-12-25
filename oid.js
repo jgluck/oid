@@ -44,6 +44,7 @@ var lifeBox;
 
 // Accelerometer support
 var accel = false;
+var toTurn = 0;
 
 if (window.DeviceMotionEvent) {
 	accel = true;
@@ -57,8 +58,24 @@ function deviceMotionHandler(eventData) {
   yrot = 0;
 
   var rotation = eventData.accelerationIncludingGravity;
+  var ori = window.orientation;
+  var toPrint = 0;
 
-  yrot = rotation.y;
+  if(ori = 0){
+  	//portrai
+  	xrot = rotation.x;
+  	toPrint = "xrot: " + xrot;
+  }else if(ori = -90){
+  	//turned left
+  	yrot = rotation.y;
+  	toPrint = "yrot: " + yrot;
+  }else{
+  	//turned right
+  	yrot = rotation.y;
+  	toPrint = "yrot: " + yrot;
+  }
+
+
 
   console.log(yrot);      
 }
