@@ -56,28 +56,28 @@ function deviceMotionHandler(eventData) {
   var info, xyz = "[X, Y, Z]";
 
   // Grab the acceleration from the results
-  var acceleration = eventData.acceleration;
-  info = xyz.replace("X", acceleration.x);
-  info = info.replace("Y", acceleration.y);
-  info = info.replace("Z", acceleration.z);
-  console.log(info);
+  // var acceleration = eventData.acceleration;
+  // info = xyz.replace("X", acceleration.x);
+  // info = info.replace("Y", acceleration.y);
+  // info = info.replace("Z", acceleration.z);
+  // console.log(info);
 
   // Grab the acceleration including gravity from the results
-  acceleration = eventData.accelerationIncludingGravity;
-  info = xyz.replace("X", acceleration.x);
-  info = info.replace("Y", acceleration.y);
-  info = info.replace("Z", acceleration.z);
-  console.log(info);
+  // acceleration = eventData.accelerationIncludingGravity;
+  // info = xyz.replace("X", acceleration.x);
+  // info = info.replace("Y", acceleration.y);
+  // info = info.replace("Z", acceleration.z);
+  // console.log(info);
 
   // Grab the rotation rate from the results
   var rotation = eventData.rotationRate;
-  info = xyz.replace("X", rotation.alpha);
+  // info = xyz.replace("X", rotation.alpha);
   info = info.replace("Y", rotation.beta);
-  info = info.replace("Z", rotation.gamma);
-  document.getElementById("moRotation").innerHTML = info;
+  // info = info.replace("Z", rotation.gamma);
+  // console.log(info);
 
   // // Grab the refresh interval from the results
-  info = eventData.interval;
+  // info = eventData.interval;
   console.log(info);      
 }
 
