@@ -430,7 +430,7 @@ function Ship(){
 			}
 
 			if (Math.abs(toTurn)>0.6) {
-				this.a+=toTurn*dt*3;
+				this.a+=toTurn*dt*2.2;
 			};
 
 			if(toBurn){
