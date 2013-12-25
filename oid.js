@@ -77,7 +77,7 @@ function deviceMotionHandler(eventData) {
 
 
 
-  console.log(yrot);      
+  console.log(toPrint);      
 }
 
 function init(){
