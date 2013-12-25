@@ -103,6 +103,12 @@ function init(){
 	document.onkeydown=keyDown;
 	document.onkeyup=keyUp;
 	window.onblur=windowBlur;
+
+	   //lets add the burner
+	if(accel){
+		container.addEventListener('touchstart',setBurn());
+		container.addEventListener('touchend',stopBurn());
+	}
 	
 	resize();
 	
@@ -114,12 +120,6 @@ function init(){
 	
 	upScore();
 	upLives();
-
-    //lets add the burner
-	if(accel){
-		container.addEventListener('touchstart',setBurn());
-		container.addEventListener('touchend',stopBurn());
-	}
 }
 
 function upLives(){
