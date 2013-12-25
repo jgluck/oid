@@ -291,8 +291,8 @@ function step(){
 			document.body.style.backgroundColor='grey';
 			needToRespawn = true;
 			myShip.div.style.visibility='hidden';
-			myShip.x=-10;
-			myShip.y=-10;
+			myShip.x=-1000;
+			myShip.y=-1000;
 			myShip.vx=0;
 			myShip.vy=0;
 			myShip.a=0;
