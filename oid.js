@@ -52,16 +52,18 @@ if (window.DeviceMotionEvent) {
   window.addEventListener('devicemotion', deviceMotionHandler, false);
 }
 
-function setBurn(){
+function setBurn(event){
+	event.preventDefault();
 	toBurn = true;
 }
 
-function stopBurn(){
+function stopBurn(event){
+	event.preventDefault();
 	toBurn = false;
 }
 
-function doNuffin(){
-	;
+function doNuffin(event){
+	event.preventDefault();
 }
 
 
