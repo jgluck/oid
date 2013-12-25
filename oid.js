@@ -399,6 +399,16 @@ function Ship(){
 			this.vy-bulletVel*Math.cos(this.a),bulletLife);
 	}
 	
+	 this.step=function(){
+	 	if(!needToRespawn){
+			this.x+=this.vx*dt;
+    		this.y+=this.vy*dt;
+    	
+    		this.x=(this.x+dims.w)%dims.w;
+			this.y=(this.y+dims.h)%dims.h;
+		}
+    }
+
 	this.up=function(){
 		if(keys[38]){ //up
 			this.vx+=Math.sin(this.a)*jetForce*dt;
@@ -411,7 +421,7 @@ function Ship(){
 			}
 		}
 
-		if(isTouchy){
+		if(isTouchy){ //on a touch screen
 
 			bulletWait-=dt;
 			if(bulletWait<=0){
@@ -419,8 +429,8 @@ function Ship(){
 				this.fire();
 			}
 
-			if (Math.abs(toTurn)>0.4) {
-				this.a+=toTurn*dt*1.5;
+			if (Math.abs(toTurn)>0.6) {
+				this.a+=toTurn*dt*3;
 			};
 
 			if(toBurn){
@@ -556,13 +566,11 @@ function Thing(x,y,vx,vy,size,angle,className,content){
     container.appendChild(this.div);
     
     this.step=function(){
-    	if(!needToRespawn){
 			this.x+=this.vx*dt;
     		this.y+=this.vy*dt;
     	
     		this.x=(this.x+dims.w)%dims.w;
 			this.y=(this.y+dims.h)%dims.h;
-    	}
     }
 	this.upLoc=function(){
 		this.div.style.top=n2s(this.y)+'px';
