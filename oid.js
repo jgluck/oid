@@ -388,6 +388,17 @@ function Ship(){
 			if (Math.abs(toTurn)>0.2) {
 				this.a+=toTurn*dt;
 			};
+
+			if(toBurn){
+			this.vx+=Math.sin(this.a)*jetForce*dt;
+			this.vy-=Math.cos(this.a)*jetForce*dt;
+			
+			for(var i=0;i<5;i++){
+				new Spark(this.x,this.y,
+					this.vx-rand(100,200)*Math.sin(this.a),
+					this.vy+rand(100,200)*Math.cos(this.a),rand(0,.3)*(rainbowMode?5:1));
+			}
+			}
 		}
 		if(keys[39]){ //right
 			this.a+=turnSpeed*dt;
