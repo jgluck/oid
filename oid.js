@@ -1,3 +1,65 @@
+//Socket Stuff based on: http://www.sccs.swarthmore.edu/users/12/abiele1/ballpit/ballpit.js
+var socket = null;
+var socketPort=8124;
+
+var socketHost='localhost';
+var socketPath='http://'+socketHost+':8124/';
+
+var scr=document.createElement('script');
+scr.src=socketPath+'socket.io/socket.io.js';
+
+//mozilla
+if(!document.head)document.head=document.getElementsByTagName('head')[0];
+
+document.head.appendChild(scr);
+
+
+function initSocket(){
+
+	if(socket){
+		socket.disconnect();
+		socket.socket.connect();
+	}
+
+	// var transports=["websocket", "htmlfile", "xhr-multipart", "xhr-polling", "jsonp-polling"];
+
+	// socket = io.connect(socketHost+":"+socketPort,{'transports':transports,
+	// 	'rememberTransport':false});
+
+	socket = io.connect(socketPath);
+
+
+	if(!socket.$events){
+		// socket.on('connect',handleConnect); 
+		// socket.on('message',handleMessage);
+		socket.on('pulse',handlePulse);
+		socket.on('dx', handleDx);
+		socket.on('dy', handleDy);
+		socket.on('dz', handleDz);
+		// socket.on('disconnect',handleDisconnect);
+	}
+}
+
+
+
+var handlePulse = function(pulse){
+	console.log('pulse: '+pulse);
+}
+
+var handleDx = function(dx){
+	console.log('DX: '+dx);
+}
+
+var handleDy = function(dy){
+	console.log('DY: '+dy);
+}
+
+var handleDz = function(dz){
+	console.log('DZ: '+dz);
+}
+
+//
+
 
 
 var container;
@@ -100,6 +162,7 @@ function deviceMotionHandler(eventData) {
 }
 
 function init(){
+	initSocket();
 	container=document.getElementById("container");
 
 	scoreBox=new textBox();
