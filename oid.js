@@ -2,8 +2,10 @@
 var socket = null;
 var socketPort=8124;
 
-var socketHost='localhost';
+// var socketHost='localhost';
+var socketHost=document.location.hostname;
 var socketPath='http://'+socketHost+':8124/';
+
 
 var scr=document.createElement('script');
 scr.src=socketPath+'socket.io/socket.io.js';
@@ -43,7 +45,7 @@ function initSocket(){
 
 
 var handlePulse = function(pulse){
-	console.log('pulse: '+pulse);
+	console.log('pulse: '+pulse.pulse);
 }
 
 var handleDx = function(dx){
