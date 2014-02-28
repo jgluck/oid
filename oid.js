@@ -45,19 +45,22 @@ function initSocket(){
 
 
 var handlePulse = function(pulse){
-	console.log('pulse: '+pulse.pulse);
+	// console.log('pulse: '+pulse.pulse);
+	if(pulseCanSpawnAsteroid)
+		spawnRocks(1);
+	pulseCanSpawnAsteroid=!pulseCanSpawnAsteroid;
 }
 
 var handleDx = function(dx){
-	console.log('DX: '+dx);
+	lilyDX = dx.dx;
 }
 
 var handleDy = function(dy){
-	console.log('DY: '+dy);
+	lilyDY = dy.dy;
 }
 
 var handleDz = function(dz){
-	console.log('DZ: '+dz);
+	lilyDZ = dz.dz;
 }
 
 //
@@ -112,6 +115,12 @@ var accel = false;
 var toTurn = 0;
 var toBurn = false;
 var isTouchy = false;
+
+
+//CUFF VARIABLES
+var pulseCanSpawnAsteroid = false;
+var lilyDX = 0, lilyDY =0, lilyDZ = 0; 
+
 
 if (window.DeviceMotionEvent) {
 	accel = true;
@@ -184,8 +193,9 @@ function init(){
 
 	myShip=new Ship();
 	
-	spawnRocks(numRocks);
-	
+	// spawnRocks(numRocks);
+	spawnRocks(1);
+
 	upScore();
 	upLives();
 		   //lets add the burner
@@ -633,6 +643,9 @@ function Thing(x,y,vx,vy,size,angle,className,content){
     this.step=function(){
 			this.x+=this.vx*dt;
     		this.y+=this.vy*dt;
+
+    		this.vy = this.vy + (lilyDY * 10 / (this.size/2));
+    		this.vx = this.vx + (lilyDX * 10 / (this.size/2));
     	
     		this.x=(this.x+dims.w)%dims.w;
 			this.y=(this.y+dims.h)%dims.h;
