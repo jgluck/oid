@@ -63,9 +63,6 @@ var handleDz = function(dz){
 	lilyDZ = dz.dz;
 }
 
-//
-
-
 
 var container;
 var myShip;
@@ -88,9 +85,17 @@ var rockInitial=100;
 var rockMin=40;
 var rockFactor=.6;
 var rockChilderen=2;
-var rockChars=['&#9827;','&#9824;','&#9829;','&#9830;'];
 
-var powerupChar=['&#1161;'];
+
+var shipChar = "^";
+var bulletChar = ":";
+
+var rockChars = ["{ }", "#", "@", "+"];
+// var rockChars=['&#9827;','&#9824;','&#9829;','&#9830;'];
+// var rockChars=['&#9827;','&#9824;','&#9829;','&#9830;'];
+
+var powerupChar = ["*"];
+// var powerupChar=['&#1161;'];
 // var powerupChar=['&#9830;'];
 var powerupTime = 0;
 var powerupDuration = 0;
@@ -179,7 +184,8 @@ function init(){
 	scoreBox=new textBox();
 	lifeBox=new textBox();
 	
-	scoreBox.div.style.fontFamily="Courier New, Courier New, monospace";
+	scoreBox.div.style.fontFamily = "consolas, monospace";
+    lifeBox.div.style.fontFamily = "consolas, monospace";
 
 	window.onresize=resize;
 	document.onkeydown=keyDown;
@@ -212,10 +218,10 @@ function upLives(){
 	var str="";
 	if(lives>0){
 		for(var i=0;i<lives;i++){
-			str+='A';
+			str += shipChar;
 		}
 	}else{
-		str+='A*('+lives+')';	
+		str+=shipChar + ' * ['+lives+']';
 	}
 	
 	lifeBox.up(str);
@@ -458,7 +464,7 @@ function Ship(){
 	
 	this.inheritFrom = Thing;
 	//this.inheritFrom(dims.w/2,dims.h/2,0,0,30,0,'ship','Д');
-	this.inheritFrom(dims.w/2,dims.h/2,0,0,30,0,'ship','A');
+	this.inheritFrom(dims.w/2,dims.h/2,0,0,30,0,'ship', shipChar);
 	
 	var jetForce=600;
 	var turnSpeed=4;
@@ -549,7 +555,7 @@ function Ship(){
 function Bullet(x0,y0,vx0,vy0,time){
 	
 	this.inheritFrom = Thing;
-	this.inheritFrom(x0,y0,vx0,vy0,20,Math.atan2(-vx0,vy0),'bullet','.');
+	this.inheritFrom(x0,y0,vx0,vy0,20,Math.atan2(-vx0,vy0),'bullet', bulletChar);
 
 	this.t=time||2;
 	
