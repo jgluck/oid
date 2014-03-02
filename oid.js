@@ -644,8 +644,8 @@ function Thing(x,y,vx,vy,size,angle,className,content){
 			this.x+=this.vx*dt;
     		this.y+=this.vy*dt;
 
-    		this.vy = this.vy + (lilyDY * 10 / (this.size/2));
-    		this.vx = this.vx + (lilyDX * 10 / (this.size/2));
+    		this.vy = this.vy + (-lilyDY * 50 / (this.size/2));
+    		this.vx = this.vx + (-lilyDX * 50 / (this.size/2));
     	
     		this.x=(this.x+dims.w)%dims.w;
 			this.y=(this.y+dims.h)%dims.h;
